@@ -1,0 +1,5 @@
+*.so.*
+*.so
+*.mp4
+build/*
+test/*

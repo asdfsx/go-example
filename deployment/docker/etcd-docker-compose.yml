@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  etcd:
+    image: "quay.io/coreos/etcd:v3.3"
+    container_name: "etcd"
+    environment:
+      ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCDCTL_API: "3"
+    ports:
+    - 2379:2379
+    - 2380:2380
+    - 4001:4001
+  e3w:
+    image: soyking/e3w:latest
+    volumes:
+      - ./config.etcd.ini:/app/conf/config.default.ini
+    ports:
+      - "8080:8080"
+    depends_on:
+      - etcd
